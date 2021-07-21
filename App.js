@@ -1,21 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import Pokemons from "./Components/Pokemons";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import PokemonDetail from "./Components/PokemonDetail";
+
+const queryClient = new QueryClient();
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+        <Stack.Navigator>
+          <Stack.Screen name="Pokemons" component={Pokemons} />
+          <Stack.Screen name="Pokemon" component={PokemonDetail} />
+        </Stack.Navigator>
+      </QueryClientProvider>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
