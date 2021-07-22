@@ -23,7 +23,14 @@ export default function App() {
             }}
             component={Pokedex}
           />
-          <Stack.Screen name="Pokemon" component={PokemonDetail} />
+          <Stack.Screen
+            name="Pokemon"
+            options={{
+              title: false,
+              headerBackTitle: "Pokemons",
+            }}
+            component={PokemonDetail}
+          />
         </Stack.Navigator>
       </QueryClientProvider>
     </NavigationContainer>

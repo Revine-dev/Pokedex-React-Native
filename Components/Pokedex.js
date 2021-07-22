@@ -14,7 +14,7 @@ import { useQuery } from "react-query";
 import Loading from "./Loading";
 import { LogBox } from "react-native";
 
-export default Pokedex = () => {
+export default Pokedex = ({ navigation }) => {
   const limit = 50;
   const totalPokemons = 898;
   const maxPage = Math.ceil(totalPokemons / limit);
@@ -69,7 +69,11 @@ export default Pokedex = () => {
                 return (
                   <View style={styles.pokedexList}>
                     <TouchableOpacity
-                      onPress={() => console.log(item.url)}
+                      onPress={() =>
+                        navigation.navigate("Pokemon", {
+                          url: item.url,
+                        })
+                      }
                       style={styles.pokedexEl}
                     >
                       <View style={styles.pokedexLeft}>
@@ -78,8 +82,12 @@ export default Pokedex = () => {
                       <View style={[styles.pokedexEl, styles.pokedexRight]}>
                         <Image
                           style={styles.pokedexImg}
+                          resizeMode="contain"
                           source={{
-                            uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${index}.png`,
+                            uri:
+                              index > 649
+                                ? `https://img.pokemondb.net/artwork/large/${item.name.toLowerCase()}.jpg`
+                                : `https://img.pokemondb.net/sprites/black-white/anim/normal/${item.name.toLowerCase()}.gif`,
                           }}
                         />
                         <Text style={styles.pokedexText}>{item.name}</Text>
